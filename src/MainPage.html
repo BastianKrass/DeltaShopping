@@ -16,20 +16,41 @@
     </header>
 
     <main>
-        <h2>Our Products</h2>
+        <section>
+            <h2>Our Products</h2>
+            <div class="products">
 
-        <div class="products">
-            <div class="product">
-                <h3>T-Shirt</h3>
-                <p>Price: 19,99€</p>
-                <button>Add to cart</button>
+                <article class="product">
+                    <img src="/images/Shirt01/shirt01front.png" alt="Delta Shirt" class="product-image">
+                    <h3>T-Shirt</h3>
+                    <p>Price: <span>19,99€</span></p>
+                    <button data-product="T-Shirt" data-price="19.99">Add to cart</button>
+                </article>
+
+                <article class="product">
+                    <img src="/images/Shirt01/shirt01back.png" alt="Delta Shirt" class="product-image">
+                    <h3>T-Shirt</h3>
+                    <p>Price: <span>19,99€</span></p>
+                    <button data-product="T-Shirt" data-price="19.99">Add to cart</button>
+                </article>
             </div>
-            <div class="product">
-                <h3>Sweater</h3>
-                <p>Price: 39,99€</p>
-                <button>Add to cart</button>
-            </div>
-        </div>
+        </section>
+
+        <section id="contact">
+            <h2>Conctact Us</h2>
+            <form>
+                <label for="name">Name:</label><br>
+                <input type="text" id="name" name="name" placeholder="Your Name"><br><br>
+
+                <label for="email">Email:</label><br>
+                <input type="email" id="email" name="email" placeholder="you@example.com"><br><br>
+
+                <label for="message">Message:</label><br>
+                <textarea id="message" name="message" rows="5" placeholder="Your message"></textarea><br><br>
+
+                <button type="submit">Send Message</button>
+            </form>
+        </section>
     </main>
 
     <footer>

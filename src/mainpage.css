@@ -1,27 +1,28 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
+    background-color: #121212;
+    color: #e0e0e0;
 }
 
 header  {
-    background-color: #222;
-    color: white;
-    padding: 20px;
+    background-color: #1f1f1f;
+    color: #ffffff;
+    padding: 20px 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 nav a {
-    color: white;
+    color: #ffffff;
     text-decoration: none;
     margin-left: 15px;
     font-weight: bold;
 }
 
 nav a:hover {
-    text-decoration: underline;
+    color: #ff9500;
 }
 
 main {
@@ -31,6 +32,7 @@ main {
 h2 {
     text-align: center;
     margin-bottom: 30px;
+    color: #ffffff;
 }
 
 .products {
@@ -39,12 +41,35 @@ h2 {
     gap: 20px;
 }
 
-.products {
-    background-color: white;
+.product {
+    background-color: #1e1e1e;
     padding: 20px;
     border-radius: 10px;
     text-align: center;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    color: #e0e0e0;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.product:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.7);
+}
+
+.product-image {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.product a {
+    color: #ff9500;
+    text-decoration: none;
+}
+
+.product a:hover{
+    text-decoration: underline;
 }
 
 button {
@@ -55,15 +80,41 @@ button {
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
+    transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
 button:hover {
     background-color: #e05500;
+    transform: scale(1.05);
+}
+
+form {
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: #1e1e1e;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+}
+
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #2a2a2a;
+    color: #e0e0e0;
+}
+
+input::placeholder, textarea::placeholder {
+    color: #bbbbbb;
 }
 
 footer {
-    background-color: #222;
-    color: white;
+    background-color: #1f1f1f;
+    color: #ffffff;
     text-align: center;
     padding: 15px;
     margin-top: 40px;
