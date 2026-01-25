@@ -19,51 +19,105 @@
     </header>
 
     <main>
-        <section>
+        <section class="product-section">
             <h2>Our Products</h2>
             <div class="products">
 
                 <article class="product">
-                    <img src="/images/shirt01/shirt01front.png" alt="Delta Shirt" class="product-image">
+                    <div class="product-gallery">
+                        <img
+                                src="/images/products/shirt01/shirt01front.png"
+                                alt="Delta Shirt"
+                                class="product-image"
+                                data-default="/images/products/shirt01/shirt01front.png"
+                        >
+                        <div class="product-thumbnails">
+                            <img src="/images/products/shirt01/shirt01front.png">
+                            <img src="/images/products/shirt01/shirt01back.png">
+                            <img src="/images/products/shirt01/shirt01right.png">
+                            <img src="/images/products/shirt01/shirt01left.png">
+                        </div>
+                    </div>
                     <h3>T-Shirt</h3>
-                    <p>Price: <span>19,99€</span></p>
-                    <button data-product="T-Shirt" data-price="19.99">Add to cart</button>
+                    <p><span>19,99€</span></p>
+                    <button data-product="T-Shirt" data-price="19.99">Quick add</button>
                 </article>
 
                 <article class="product">
-                    <img src="/images/shirt01/shirt01back.png" alt="Delta Shirt" class="product-image">
+                    <span class="badge new">NEW</span>
+                    <div class="product-gallery">
+                        <img
+                                src="/images/products/hoodie01/hoodie01front.png"
+                                alt="Delta Shirt"
+                                class="product-image"
+                                data-default="/images/products/hoodie01/hoodie01front.png"
+                        >
+                        <div class="product-thumbnails">
+                            <img src="/images/products/hoodie01/hoodie01front.png">
+                            <img src="/images/products/hoodie01/hoodie01back.png">
+                            <img src="/images/products/hoodie01/hoodie01right.png">
+                            <img src="/images/products/hoodie01/hoodie01left.png">
+                        </div>
+                    </div>
                     <h3>T-Shirt</h3>
-                    <p>Price: <span>19,99€</span></p>
-                    <button data-product="T-Shirt" data-price="19.99">Add to cart</button>
+                    <p><span>39,99€</span></p>
+                    <button data-product="T-Shirt" data-price="39.99">Quick add</button>
                 </article>
 
                 <article class="product">
-                    <img src="/images/shirt01/shirt01right.png" alt="Delta Shirt" class="product-image">
+                    <div class="product-gallery">
+                        <img
+                                src="/images/products/shirt01/shirt01front.png"
+                                alt="Delta Shirt"
+                                class="product-image"
+                                data-default="/images/products/shirt01/shirt01front.png"
+                        >
+                        <div class="product-thumbnails">
+                            <img src="/images/products/shirt01/shirt01front.png">
+                            <img src="/images/products/shirt01/shirt01back.png">
+                            <img src="/images/products/shirt01/shirt01right.png">
+                            <img src="/images/products/shirt01/shirt01left.png">
+                        </div>
+                    </div>
                     <h3>T-Shirt</h3>
-                    <p>Price: <span>19,99€</span></p>
-                    <button data-product="T-Shirt" data-price="19.99">Add to cart</button>
+                    <p><span>19,99€</span></p>
+                    <button data-product="T-Shirt" data-price="19.99">Quick add</button>
                 </article>
 
                 <article class="product">
-                    <img src="/images/shirt01/shirt01left.png" alt="Delta Shirt" class="product-image">
+                    <div class="product-gallery">
+                        <img
+                                src="/images/products/shirt01/shirt01front.png"
+                                alt="Delta Shirt"
+                                class="product-image"
+                                data-default="/images/products/shirt01/shirt01front.png"
+                        >
+                        <div class="product-thumbnails">
+                            <img src="/images/products/shirt01/shirt01front.png">
+                            <img src="/images/products/shirt01/shirt01back.png">
+                            <img src="/images/products/shirt01/shirt01right.png">
+                            <img src="/images/products/shirt01/shirt01left.png">
+                        </div>
+                    </div>
                     <h3>T-Shirt</h3>
-                    <p>Price: <span>19,99€</span></p>
-                    <button data-product="T-Shirt" data-price="19.99">Add to cart</button>
+                    <p><span>19,99€</span></p>
+                    <button data-product="T-Shirt" data-price="19.99">Quick add</button>
                 </article>
+
             </div>
         </section>
 
-        <section id="contact">
+        <section id="contact" class="contact-section">
             <h2>Conctact Us</h2>
-            <form>
-                <label for="name">Name:</label><br>
-                <input type="text" id="name" name="name" placeholder="Your Name"><br><br>
+            <form action="#" method="post">
+                <label for="name">Name</label><br>
+                <input type="text" id="name" name="name" placeholder="Your Name" required>
 
-                <label for="email">Email:</label><br>
-                <input type="email" id="email" name="email" placeholder="you@example.com"><br><br>
+                <label for="email">Email</label><br>
+                <input type="email" id="email" name="email" placeholder="you@example.com" required>
 
                 <label for="message">Message:</label><br>
-                <textarea id="message" name="message" rows="5" placeholder="Your message"></textarea><br><br>
+                <textarea id="message" name="message" rows="5" placeholder="Your message" required></textarea>
 
                 <button type="submit">Send Message</button>
             </form>
@@ -73,5 +127,6 @@
     <footer>
         <p>© 2026 Delta</p>
     </footer>
+    <script src="mainpage.js"></script>
 </body>
 </html>
