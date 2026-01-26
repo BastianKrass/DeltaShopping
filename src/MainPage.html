@@ -16,6 +16,17 @@
             <a href="#">Products</a>
             <a href="#">Contact</a>
         </nav>
+
+        <div id="cart">
+            🛒 <span id="cart-count">0</span>
+        </div>
+
+        <div id="cart-overlay">
+            <h3>Warenkorb</h3>
+            <ul id="cart-items"></ul>
+            <p>Total: €<span id="cart-total">0.00</span></p>
+            <button id="checkout-btn">Checkout</button>
+        </div>
     </header>
 
     <main>
@@ -61,7 +72,7 @@
                     </div>
                     <h3>Hoodie</h3>
                     <p><span>39,99€</span></p>
-                    <button data-product="T-Shirt" data-price="39.99">Quick add</button>
+                    <button data-product="Hoodie" data-price="39.99">Quick add</button>
                 </article>
 
                 <article class="product">
