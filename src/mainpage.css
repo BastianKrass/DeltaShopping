@@ -347,3 +347,47 @@ footer {
 #cart-overlay button#checkout-btn:hover {
     background: #2563eb;
 }
+
+
+.color-picker {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin: 12px 0;
+}
+
+.color-picker label {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.color-picker input {
+    display: none;
+}
+
+.color-dot {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 2px solid #444;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border 0.15s ease;
+}
+
+/* Farben */
+.color-dot.black { background: #000; }
+.color-dot.grey  { background: #9ca3af; }
+.color-dot.navy  { background: #2563eb; }
+.color-dot.white  { background: #ffffff; }
+
+/* Aktiv */
+.color-picker input:checked + .color-dot {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59,130,246,0.35);
+    transform: scale(1.15);
+}
+
+/* Hover */
+.color-picker label:hover .color-dot {
+    transform: scale(1.1);
+}

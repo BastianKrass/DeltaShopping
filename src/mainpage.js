@@ -45,19 +45,25 @@ cartCount.addEventListener('click', ()=> {
 
 buttons.forEach(button => {
     button.addEventListener('click', () => {
+        const product =  button.closest('.product');
+
         const productName = button.dataset.product;
         const productPrice = parseFloat(button.dataset.price);
 
-        addToCart(productName, productPrice);
+        const selectedColor = product.querySelector(
+            'input[type="radio"]:checked'
+        )?.value || "Default";
+
+        addToCart(productName, productPrice, selectedColor);
     });
 });
 
-function addToCart(name, price) {
-    const existingProduct = cart.find(item => item.name === name);
+function addToCart(name, price, color) {
+    const existingProduct = cart.find(item => item.name === name && item.color === color);
     if (existingProduct) {
         existingProduct.quantity += 1;
     } else {
-        cart.push({name: name, price: price, quantity: 1});
+        cart.push({name: name, price: price, color: color, quantity: 1});
     }
     updateCartUI();
 }
@@ -77,8 +83,7 @@ function updateCartUI() {
         li.style.justifyContent = 'space-between';
         li.style.alignItems = 'center';
         li.style.marginBottom = '8px';
-        li.textContent = `${item.name} x${item.quantity} - €${(item.price * item.quantity).toFixed(2)}`;
-
+        li.textContent = `${item.name} (${item.color}) x${item.quantity} - €${(item.price * item.quantity).toFixed(2)}`;
         // Löschen-Button
         const removeBtn = document.createElement('button');
         removeBtn.textContent = '✕';
@@ -121,3 +126,53 @@ checkoutBtn.addEventListener('click', () => {
     updateCartUI();
     cartOverlay.style.display = 'none';
 })
+
+// Color Picker + Showcase Image Switch
+document.querySelectorAll('.product').forEach(product => {
+    const mainImage = product.querySelector('.product-image');
+    const thumbnails = product.querySelectorAll('.product-thumbnails img');
+    const colorRadios = product.querySelectorAll('.color-picker input');
+
+    if (!mainImage) return;
+
+    const productKey = mainImage.dataset.product;
+    let currentColor =
+        product.querySelector('.color-picker input:checked')?.dataset.color || 'black';
+
+    function imagePath(view, color) {
+        return `/images/products/${productKey}/${color}/${productKey}${view}-${color}.png`;
+    }
+
+    function updateImages(view = 'front') {
+        mainImage.style.opacity = 0;
+
+        setTimeout(() => {
+            mainImage.src = imagePath(view, currentColor);
+
+            thumbnails.forEach(thumb => {
+                const thumbView = thumb.dataset.view;
+                thumb.src = imagePath(thumbView, currentColor);
+            });
+
+            mainImage.style.opacity = 1;
+        }, 150);
+    }
+
+    // Initial laden
+    updateImages();
+
+    // Farbwechsel
+    colorRadios.forEach(radio => {
+        radio.addEventListener('change', () => {
+            currentColor = radio.dataset.color;
+            updateImages();
+        });
+    });
+
+    // Hover Showcase
+    thumbnails.forEach(thumb => {
+        thumb.addEventListener('mouseenter', () => {
+            updateImages(thumb.dataset.view);
+        });
+    });
+});
