@@ -39,8 +39,15 @@ const cartItems = document.getElementById('cart-items');
 const cartTotal = document.getElementById('cart-total');
 const checkoutBtn = document.getElementById('checkout-btn');
 
-cartCount.addEventListener('click', ()=> {
+const cartIcon = document.getElementById('cart');
+const cartClose = document.getElementById('cart-close');
+
+cartIcon.addEventListener('click', ()=> {
     cartOverlay.style.display = cartOverlay.style.display === 'none' ? 'block' : 'none';
+});
+
+cartClose.addEventListener('click', () => {
+    cartOverlay.style.display = 'none';
 });
 
 buttons.forEach(button => {
@@ -83,26 +90,62 @@ function updateCartUI() {
         li.style.justifyContent = 'space-between';
         li.style.alignItems = 'center';
         li.style.marginBottom = '8px';
-        li.textContent = `${item.name} (${item.color}) x${item.quantity} - €${(item.price * item.quantity).toFixed(2)}`;
-        // Löschen-Button
-        const removeBtn = document.createElement('button');
-        removeBtn.textContent = '✕';
-        removeBtn.style.background = 'transparent';
-        removeBtn.style.border = 'none';
-        removeBtn.style.color = '#ff4d4d';
-        removeBtn.style.cursor = 'pointer';
-        removeBtn.addEventListener('click', () => {
-            cart.splice(index, 1); // Produkt entfernen
-            updateCartUI(); // UI neu rendern
+
+        // Info-Container
+        const info = document.createElement('div');
+        info.className = 'cart-item-info';
+        info.innerHTML = `
+            <span>${item.name} (${item.color})</span>
+            <span>€${item.price.toFixed(2)} x ${item.quantity} = €${(item.price * item.quantity).toFixed(2)}</span>
+        `;
+
+        // Menge Buttons
+        const controls = document.createElement('div');
+        controls.style.display = 'flex';
+        controls.style.alignItems = 'center';
+        controls.style.gap = '5px';
+
+        const minusBtn = document.createElement('button');
+        minusBtn.textContent = '−';
+        minusBtn.className = 'cart-quantity';
+        minusBtn.addEventListener('click', () => {
+            if (item.quantity > 1) {
+                item.quantity--;
+            } else {
+                cart.splice(index, 1);
+            }
+            updateCartUI();
         });
 
+        const plusBtn = document.createElement('button');
+        plusBtn.textContent = '+';
+        plusBtn.className = 'cart-quantity';
+        plusBtn.addEventListener('click', () => {
+            item.quantity++;
+            updateCartUI();
+        });
+
+        controls.appendChild(minusBtn);
+        controls.appendChild(plusBtn);
+
+        // Löschen Button
+        const removeBtn = document.createElement('button');
+        removeBtn.textContent = '✕';
+        removeBtn.className = 'cart-remove';
+        removeBtn.addEventListener('click', () => {
+            cart.splice(index, 1);
+            updateCartUI();
+        });
+
+        li.appendChild(info);
+        li.appendChild(controls);
         li.appendChild(removeBtn);
+
         cartItems.appendChild(li);
 
         totalPrice += item.price * item.quantity;
     });
 
-    // Gesamtpreis aktualisieren
     cartTotal.textContent = totalPrice.toFixed(2);
 }
 
