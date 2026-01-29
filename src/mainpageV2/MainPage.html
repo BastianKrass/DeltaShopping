@@ -1,225 +1,574 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title>Delta</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delta – Excellence Through Transformation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="mainpage.css">
 </head>
 <body>
-    <header>
-        <h1 class="logo">
-            <img src="/images/icons/unclosedDelta.png" alt="Delta Logo" class="logo-icon">
-            DELTA
-        </h1>
-        <nav>
-            <a href="#">Home</a>
-            <a href="#">Products</a>
-            <a href="#">Contact</a>
+<!-- Mobile Menu Toggle -->
+<button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Menu">
+    <span></span>
+    <span></span>
+    <span></span>
+</button>
+
+<!-- Navigation -->
+<header class="header">
+    <div class="header-container">
+        <div class="logo">
+            <svg class="logo-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <img src="/images/icons/unclosedDelta.png" alt="Delta Logo" class="logo-icon">
+            </svg>
+            <span>DELTA</span>
+        </div>
+
+        <nav class="nav" id="nav">
+            <a href="#home" class="nav-link">Home</a>
+            <a href="#vision" class="nav-link">Vision</a>
+            <a href="#collection" class="nav-link">Kollektion</a>
+            <a href="#excellence" class="nav-link">Excellence</a>
+            <a href="#contact" class="nav-link">Kontakt</a>
         </nav>
 
-        <div id="cart" class="cart-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <button class="cart-btn" id="cart-toggle">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <circle cx="9" cy="21" r="1"></circle>
                 <circle cx="20" cy="21" r="1"></circle>
                 <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
             </svg>
-            <span id="cart-count">0</span>
+            <span class="cart-badge" id="cart-count">0</span>
+        </button>
+    </div>
+</header>
+
+<!-- Cart Drawer -->
+<aside class="cart-drawer" id="cart-drawer">
+    <div class="cart-header">
+        <h3>Dein Warenkorb</h3>
+        <button class="cart-close" id="cart-close">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+    </div>
+
+    <div class="cart-content">
+        <ul class="cart-items" id="cart-items"></ul>
+        <div class="cart-empty" id="cart-empty">
+            <p>Bereit für die nächste Stufe?</p>
+        </div>
+    </div>
+
+    <div class="cart-footer">
+        <div class="cart-summary">
+            <span>Gesamtbetrag:</span>
+            <span class="cart-total">€<span id="cart-total">0.00</span></span>
+        </div>
+        <button class="btn btn-primary" id="checkout-btn">Checkout</button>
+    </div>
+</aside>
+
+<div class="cart-overlay" id="cart-overlay"></div>
+
+<!-- Hero Section -->
+<section class="hero" id="home">
+    <div class="hero-background">
+        <div class="gradient-orb gradient-orb-1"></div>
+        <div class="gradient-orb gradient-orb-2"></div>
+    </div>
+
+    <div class="hero-content">
+        <div class="hero-label">TRANSFORMATION THROUGH EXCELLENCE</div>
+        <h1 class="hero-title">Elevate Your Standard</h1>
+        <p class="hero-subtitle">Premium Quality. Professional Design. Unwavering Commitment to Your Growth.</p>
+        <div class="hero-cta-group">
+            <button class="btn btn-primary">Entdecke die Kollektion</button>
+            <button class="btn btn-outline">Unsere Mission</button>
         </div>
 
-        <div id="cart-overlay">
-            <div class="cart-header">
-                <h3>Your Cart</h3>
-                <span id="cart-close">✕</span>
+        <div class="hero-stats">
+            <div class="stat-item">
+                <div class="stat-number">50K+</div>
+                <div class="stat-label">Transformations</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Sustainable</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">10Y+</div>
+                <div class="stat-label">Durability</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Vision Section -->
+<section class="vision-section" id="vision">
+    <div class="vision-container">
+        <div class="vision-header">
+            <h2>Our Vision</h2>
+            <p class="vision-subtitle">Delta ist nicht nur Mode. Es ist ein Bekenntnis zu deinen höchsten Ansprüchen.</p>
+        </div>
+
+        <div class="vision-grid">
+            <div class="vision-card">
+                <div class="vision-icon">📊</div>
+                <h3>Integrity</h3>
+                <p>Jedes Material, jede Naht, jeder Prozess ist transparent und rückverfolgbar. Keine Kompromisse.</p>
             </div>
 
-            <ul id="cart-items"></ul>
+            <div class="vision-card">
+                <div class="vision-icon">🎯</div>
+                <h3>Purpose</h3>
+                <p>Dein Kauf ist eine Investition in dich selbst. Wir bauen für Menschen, die wachsen wollen.</p>
+            </div>
 
-            <div class="cart-footer">
-                <div class="cart-total">
-                    <span>Total</span>
-                    <span>€<span id="cart-total">0.00</span></span>
+            <div class="vision-card">
+                <div class="vision-icon">🚀</div>
+                <h3>Innovation</h3>
+                <p>Cutting-Edge Materials. Zukunftsorientierte Produktion. Design, das hält.</p>
+            </div>
+
+            <div class="vision-card">
+                <div class="vision-icon">♻️</div>
+                <h3>Sustainability</h3>
+                <p>100% nachhaltige Produktion. Fair Trade. Grüne Energie. Null Verschwendung.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Collection Section -->
+<section class="collection-section" id="collection">
+    <div class="collection-header">
+        <h2>The Essentials Collection</h2>
+        <p>Crafted for excellence. Designed for transformation.</p>
+    </div>
+
+    <div class="collection-grid">
+        <!-- Product 1 -->
+        <article class="product-card">
+            <div class="product-image-wrapper">
+                <div class="product-gallery">
+                    <img src="/images/products/shirt01/black/shirt01front-black.png"
+                         alt="Performance T-Shirt"
+                         class="product-image"
+                         data-product="shirt01"
+                         data-default-view="front">
+                    <div class="product-thumbnails">
+                        <button class="thumb" data-view="front" aria-label="Front"></button>
+                        <button class="thumb" data-view="back" aria-label="Back"></button>
+                        <button class="thumb" data-view="right" aria-label="Right"></button>
+                        <button class="thumb" data-view="left" aria-label="Left"></button>
+                    </div>
                 </div>
-                <button id="checkout-btn">Checkout</button>
+            </div>
+
+            <div class="product-info">
+                <div class="product-meta">
+                    <span class="product-category">Essentials</span>
+                    <span class="product-rating">★★★★★</span>
+                </div>
+                <h3>Performance T-Shirt</h3>
+                <p class="product-tagline">The Foundation of Excellence</p>
+                <p class="product-description">100% Bio-Baumwolle. Premium Qualität. Entwickelt für Performance.</p>
+
+                <div class="color-selector">
+                    <label class="color-option">
+                        <input type="radio" name="color-shirt" value="Schwarz" data-color="black" checked>
+                        <span class="color-swatch" style="background: #1a1a1a;"></span>
+                    </label>
+                    <label class="color-option">
+                        <input type="radio" name="color-shirt" value="Grau" data-color="grey">
+                        <span class="color-swatch" style="background: #4a4a4a;"></span>
+                    </label>
+                    <label class="color-option">
+                        <input type="radio" name="color-shirt" value="Navy" data-color="navy">
+                        <span class="color-swatch" style="background: #1a3a4a;"></span>
+                    </label>
+                </div>
+
+                <div class="product-footer">
+                    <span class="product-price">€29,99</span>
+                    <button class="btn btn-primary-sm" data-product="Performance T-Shirt" data-price="29.99">
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+        </article>
+
+        <!-- Product 2 -->
+        <article class="product-card">
+            <div class="product-image-wrapper">
+                <div class="product-gallery">
+                    <img src="/images/products/sweatshirt01/black/sweatshirt01front-black.png"
+                         alt="Executive Sweatshirt"
+                         class="product-image"
+                         data-product="sweatshirt01"
+                         data-default-view="front">
+                    <div class="product-thumbnails">
+                        <button class="thumb" data-view="front" aria-label="Front"></button>
+                        <button class="thumb" data-view="back" aria-label="Back"></button>
+                        <button class="thumb" data-view="right" aria-label="Right"></button>
+                        <button class="thumb" data-view="left" aria-label="Left"></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-info">
+                <div class="product-meta">
+                    <span class="product-category">Premium</span>
+                    <span class="product-rating">★★★★★</span>
+                </div>
+                <h3>Executive Sweatshirt</h3>
+                <p class="product-tagline">For Those Who Demand More</p>
+                <p class="product-description">Luxe-Blend Comfort. Engineered für maximale Performance.</p>
+
+                <div class="color-selector">
+                    <label class="color-option">
+                        <input type="radio" name="color-sweatshirt" value="Schwarz" data-color="black" checked>
+                        <span class="color-swatch" style="background: #1a1a1a;"></span>
+                    </label>
+                </div>
+
+                <div class="product-footer">
+                    <span class="product-price">€49,99</span>
+                    <button class="btn btn-primary-sm" data-product="Executive Sweatshirt" data-price="49.99">
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+        </article>
+
+        <!-- Product 3 -->
+        <article class="product-card featured">
+            <div class="product-badge">SIGNATURE</div>
+            <div class="product-image-wrapper">
+                <div class="product-gallery">
+                    <img src="/images/products/hoodie01/white/hoodie01front-white.png"
+                         alt="Apex Hoodie"
+                         class="product-image"
+                         data-product="hoodie01"
+                         data-default-view="front">
+                    <div class="product-thumbnails">
+                        <button class="thumb" data-view="front" aria-label="Front"></button>
+                        <button class="thumb" data-view="back" aria-label="Back"></button>
+                        <button class="thumb" data-view="right" aria-label="Right"></button>
+                        <button class="thumb" data-view="left" aria-label="Left"></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-info">
+                <div class="product-meta">
+                    <span class="product-category">Limited</span>
+                    <span class="product-rating">★★★★★</span>
+                </div>
+                <h3>Apex Hoodie</h3>
+                <p class="product-tagline">The Ultimate Statement</p>
+                <p class="product-description">Signature Collection. Maximum Comfort. Uncompromising Quality.</p>
+
+                <div class="color-selector">
+                    <label class="color-option">
+                        <input type="radio" name="color-hoodie" value="Grau" data-color="white" checked>
+                        <span class="color-swatch" style="background: #e8e8e8;"></span>
+                    </label>
+                </div>
+
+                <div class="product-footer">
+                    <span class="product-price">€69,99</span>
+                    <button class="btn btn-primary-sm" data-product="Apex Hoodie" data-price="69.99">
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+        </article>
+
+        <!-- Product 4 -->
+        <article class="product-card">
+            <div class="product-image-wrapper">
+                <div class="product-gallery">
+                    <img src="/images/products/beanie01/grey/beanie01front-grey.png"
+                         alt="Focus Beanie"
+                         class="product-image"
+                         data-product="beanie01"
+                         data-default-view="front">
+                    <div class="product-thumbnails">
+                        <button class="thumb" data-view="front" aria-label="Front"></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-info">
+                <div class="product-meta">
+                    <span class="product-category">Essentials</span>
+                    <span class="product-rating">★★★★☆</span>
+                </div>
+                <h3>Focus Beanie</h3>
+                <p class="product-tagline">Minimalist. Powerful. Essential.</p>
+                <p class="product-description">Refined elegance. Premium wool blend. Perfect for any occasion.</p>
+
+                <div class="color-selector">
+                    <label class="color-option">
+                        <input type="radio" name="color-beanie" value="Grau" data-color="grey" checked>
+                        <span class="color-swatch" style="background: #5a5a5a;"></span>
+                    </label>
+                </div>
+
+                <div class="product-footer">
+                    <span class="product-price">€24,99</span>
+                    <button class="btn btn-primary-sm" data-product="Focus Beanie" data-price="24.99">
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+        </article>
+    </div>
+</section>
+
+<!-- Models Section -->
+<section class="models-section">
+    <div class="models-container">
+        <div class="models-header">
+            <h2>See It In Action</h2>
+            <p>Excellence worn with confidence. Our community in Delta.</p>
+        </div>
+
+        <div class="models-grid">
+            <article class="model-card">
+                <div class="model-image-wrapper">
+                    <img src="/images/model/tshirt/tshirt-model-01.png" alt="Model wearing Performance T-Shirt" class="model-image">
+                    <div class="model-overlay">
+                        <span class="model-product">Performance T-Shirt</span>
+                    </div>
+                </div>
+                <div class="model-info">
+                    <h3>Urban Performance</h3>
+                    <p>Premium comfort for everyday excellence</p>
+                </div>
+            </article>
+
+            <article class="model-card">
+                <div class="model-image-wrapper">
+                    <img src="/images/model/sweatshirt/sweatshirt-model-01.png" alt="Model wearing Executive Sweatshirt" class="model-image">
+                    <div class="model-overlay">
+                        <span class="model-product">Executive Sweatshirt</span>
+                    </div>
+                </div>
+                <div class="model-info">
+                    <h3>Executive Edge</h3>
+                    <p>Professional style meets comfort</p>
+                </div>
+            </article>
+
+            <article class="model-card">
+                <div class="model-image-wrapper">
+                    <img src="/images/model/hoodie/hoodie-model-01.png" alt="Model wearing Apex Hoodie" class="model-image">
+                    <div class="model-overlay">
+                        <span class="model-product">Apex Hoodie</span>
+                    </div>
+                </div>
+                <div class="model-info">
+                    <h3>Apex Confidence</h3>
+                    <p>Your ultimate statement piece</p>
+                </div>
+            </article>
+
+            <article class="model-card">
+                <div class="model-image-wrapper">
+                    <img src="/images/model/beanie/beanie-model-01.png" alt="Model wearing Focus Beanie" class="model-image">
+                    <div class="model-overlay">
+                        <span class="model-product">Focus Beanie</span>
+                    </div>
+                </div>
+                <div class="model-info">
+                    <h3>Detail Matters</h3>
+                    <p>The perfect finishing touch</p>
+                </div>
+            </article>
+        </div>
+    </div>
+</section>
+
+<!-- Excellence Section -->
+<section class="excellence-section" id="excellence">
+    <div class="excellence-container">
+        <div class="excellence-content">
+            <h2>Built for Excellence</h2>
+            <p>Wir glauben nicht an Kompromisse. Jedes Produkt wird mit höchstem Standard gefertigt.</p>
+
+            <div class="excellence-features">
+                <div class="feature">
+                    <h4>Premium Materials</h4>
+                    <p>Bio-Baumwolle, Luxe Blends, Premium Wool. Nur das Beste.</p>
+                </div>
+                <div class="feature">
+                    <h4>Ethical Production</h4>
+                    <p>Fair Trade. Faire Löhne. Transparente Supply Chain.</p>
+                </div>
+                <div class="feature">
+                    <h4>Lifetime Quality</h4>
+                    <p>Designed to last 10+ years. Timeless design. Investment pieces.</p>
+                </div>
+                <div class="feature">
+                    <h4>Customer Support</h4>
+                    <p>30-day returns. Lifetime warranty. Support you can trust.</p>
+                </div>
             </div>
         </div>
-    </header>
 
-    <main>
-        <section class="product-section">
-            <h2>Our Products</h2>
-            <div class="products">
+        <div class="excellence-visual">
+            <img src="/images/model/showcase/showcase-model-01.png" alt="Excellence in craftsmanship" class="excellence-image">
+        </div>
+    </div>
+</section>
 
-                <article class="product">
-                    <div class="product-gallery">
-                        <img
-                                src="/images/products/shirt01/black/shirt01front-black.png"
-                                alt="Delta Shirt"
-                                class="product-image"
-                                data-product="shirt01"
-                                data-default-view="front"
-                        >
-                        <div class="product-thumbnails">
-                            <img data-view="front">
-                            <img data-view="back">
-                            <img data-view="right">
-                            <img data-view="left">
-                        </div>
+<!-- Testimonials Section -->
+<section class="testimonials-section">
+    <div class="testimonials-container">
+        <h2>What Our Community Says</h2>
+
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <div class="avatar">AC</div>
+                    <div>
+                        <div class="author-name">Alexander C.</div>
+                        <div class="author-role">CEO, Berlin</div>
                     </div>
-                    <h3>T-Shirt</h3>
-                    <p><span>19,99€</span></p>
-                    <div class="color-picker">
-                        <label>
-                            <input type="radio" name="color-tshirt" value="Black"
-                                   data-color="black" checked>
-                            <span class="color-dot black"></span>
-                        </label>
-                        <label>
-                            <input type="radio" name="color-tshirt" value="Grey"
-                                   data-color="grey">
-                            <span class="color-dot grey"></span>
-                        </label>
-                        <label>
-                            <input type="radio" name="color-tshirt" value="Navy"
-                                   data-color="navy">
-                            <span class="color-dot navy"></span>
-                        </label>
-                    </div>
-                    <button data-product="T-Shirt" data-price="19.99">Quick add</button>
-                </article>
-
-
-                <article class="product">
-                    <div class="product-gallery">
-                        <img
-                                src="/images/products/sweatshirt01/black/sweatshirt01front-black.png"
-                                alt="Delta Sweatshirt"
-                                class="product-image"
-                                data-product="sweatshirt01"
-                                data-default-view="front"
-                        >
-                        <div class="product-thumbnails">
-                            <img data-view="front">
-                            <img data-view="back">
-                            <img data-view="right">
-                            <img data-view="left">
-                        </div>
-                    </div>
-                    <h3>Sweatshirt</h3>
-                    <p><span>39,99€</span></p>
-                    <div class="color-picker">
-                        <label>
-                            <input type="radio" name="color-sweatshirt" value="Black"
-                                   data-color="black" checked>
-                            <span class="color-dot black"></span>
-                        </label>
-                    </div>
-                    <button data-product="Sweatshirt" data-price="39.99">Quick add</button>
-                </article>
-
-                <article class="product">
-                    <span class="badge new">NEW</span>
-                    <div class="product-gallery">
-                        <img
-                                src="/images/products/hoodie01/white/hoodie01front-white.png"
-                                alt="Delta Hoodie"
-                                class="product-image"
-                                data-product="hoodie01"
-                                data-default-view="front"
-                        >
-                        <div class="product-thumbnails">
-                            <img data-view="front">
-                            <img data-view="back">
-                            <img data-view="right">
-                            <img data-view="left">
-                        </div>
-                    </div>
-                    <h3>Hoodie</h3>
-                    <p><span>49,99€</span></p>
-                    <div class="color-picker">
-                        <label>
-                            <input type="radio" name="color-hoodie" value="White"
-                                   data-color="white" checked>
-                            <span class="color-dot white"></span>
-                        </label>
-                    </div>
-                    <button data-product="Hoodie" data-price="49.99">Quick add</button>
-                </article>
-
-
-                <article class="product">
-                    <span class="badge new">NEW</span>
-                    <div class="product-gallery">
-                        <img
-                                src="/images/products/beanie01/grey/beanie01front-grey.png"
-                                alt="Delta Beanie"
-                                class="product-image"
-                                data-product="beanie01"
-                                data-default-view="front"
-                        >
-                        <div class="product-thumbnails">
-                            <img data-view="front">
-                        </div>
-                    </div>
-                    <h3>Beanie</h3>
-                    <p><span>16,99€</span></p>
-                    <div class="color-picker">
-                        <label>
-                            <input type="radio" name="color-beanie" value="Grey"
-                                   data-color="grey" checked>
-                            <span class="color-dot grey"></span>
-                        </label>
-                    </div>
-                    <button data-product="Beanie" data-price="16.99">Quick add</button>
-                </article>
-
-
+                </div>
+                <div class="testimonial-rating">★★★★★</div>
+                <p>"Delta isn't just clothing. It's a commitment to excellence. The quality is unmatched."</p>
             </div>
-        </section>
 
-        <section id="contact" class="contact-section">
-            <h2>Conctact Us</h2>
-            <form action="#" method="post">
-                <label for="name">Name</label><br>
-                <input type="text" id="name" name="name" placeholder="Your Name" required>
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <div class="avatar">SJ</div>
+                    <div>
+                        <div class="author-name">Sarah J.</div>
+                        <div class="author-role">Entrepreneur, Munich</div>
+                    </div>
+                </div>
+                <div class="testimonial-rating">★★★★★</div>
+                <p>"The professionalism behind this brand is incredible. Every detail matters."</p>
+            </div>
 
-                <label for="email">Email</label><br>
-                <input type="email" id="email" name="email" placeholder="you@example.com" required>
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <div class="avatar">MK</div>
+                    <div>
+                        <div class="author-name">Marco K.</div>
+                        <div class="author-role">Designer, Hamburg</div>
+                    </div>
+                </div>
+                <div class="testimonial-rating">★★★★★</div>
+                <p>"Finally a brand that combines sustainability with true premium quality."</p>
+            </div>
+        </div>
+    </div>
+</section>
 
-                <label for="message">Message:</label><br>
-                <textarea id="message" name="message" rows="5" placeholder="Your message" required></textarea>
+<!-- CTA Section -->
+<section class="cta-section">
+    <h2>Ready to Elevate?</h2>
+    <p>Join thousands who have made the choice for excellence.</p>
+    <button class="btn btn-primary-large">Start Your Journey</button>
+</section>
 
-                <button type="submit">Send Message</button>
+<!-- Contact Section -->
+<section class="contact-section" id="contact">
+    <div class="contact-container">
+        <h2>Get in Touch</h2>
+
+        <div class="contact-grid">
+            <form class="contact-form" id="contact-form">
+                <input type="text" placeholder="Your Name" id="name" required>
+                <input type="email" placeholder="Your Email" id="email" required>
+                <textarea placeholder="Your Message" id="message" rows="5" required></textarea>
+                <button type="submit" class="btn btn-primary">Send Message</button>
             </form>
-        </section>
-    </main>
 
-    <footer class="site-footer">
-        <div class="footer-cards">
-            <div class="footer-card">
-                <h3>DELTA</h3>
-                <p>Transforming experiences through innovative products and thoughtful design.</p>
-            </div>
-            <div class="footer-card">
-                <h3>Links</h3>
-                <ul>
-                    <li><a href="#">Shop</a></li>
-                    <li><a href="#">Support</a></li>
-                    <li><a href="#">FAQ</a></li>
-                </ul>
-            </div>
-            <div class="footer-card">
-                <h3>Legal</h3>
-                <ul>
-                    <li><a href="#">Privacy</a></li>
-                    <li><a href="#">Terms</a></li>
-                    <li><a href="#">Contact</a></li>
-                </ul>
+            <div class="contact-info">
+                <div class="info-block">
+                    <h4>Email</h4>
+                    <p>hello@delta-excellence.de</p>
+                </div>
+                <div class="info-block">
+                    <h4>Phone</h4>
+                    <p>+49 (0) 123 456789</p>
+                </div>
+                <div class="info-block">
+                    <h4>Address</h4>
+                    <p>Musterstraße 123<br>10115 Berlin, Germany</p>
+                </div>
+                <div class="info-block">
+                    <h4>Hours</h4>
+                    <p>Mon - Fri: 9AM - 6PM CET<br>Sat - Sun: Closed</p>
+                </div>
             </div>
         </div>
-        <div class="footer-bottom">
-            <p>© 2026 DELTA. All rights reserved.</p>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-section">
+            <h4>DELTA</h4>
+            <p>Excellence through transformation. Premium Quality. Professional Design. Unwavering commitment.</p>
+            <div class="social-links">
+                <a href="#" aria-label="LinkedIn">in</a>
+                <a href="#" aria-label="Instagram">📷</a>
+                <a href="#" aria-label="Twitter">𝕏</a>
+            </div>
         </div>
-    </footer>
-    <script src="mainpage.js"></script>
+
+        <div class="footer-section">
+            <h4>Shop</h4>
+            <ul>
+                <li><a href="#collection">Kollektion</a></li>
+                <li><a href="#">Bundle</a></li>
+                <li><a href="#">Sale</a></li>
+                <li><a href="#">Gift Cards</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-section">
+            <h4>Support</h4>
+            <ul>
+                <li><a href="#contact">Kontakt</a></li>
+                <li><a href="#">Versand & Returns</a></li>
+                <li><a href="#">FAQ</a></li>
+                <li><a href="#">Size Guide</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-section">
+            <h4>Legal</h4>
+            <ul>
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms of Service</a></li>
+                <li><a href="#">Impressum</a></li>
+                <li><a href="#">Sustainability</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <p>&copy; 2026 DELTA. Excellence Through Transformation.</p>
+    </div>
+</footer>
+
+<!-- Toast Container -->
+<div id="toast-container"></div>
+
+<script src="mainpage.js"></script>
 </body>
 </html>

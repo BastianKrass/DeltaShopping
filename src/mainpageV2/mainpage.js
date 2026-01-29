@@ -1,221 +1,339 @@
-// Product Showcase
-document.addEventListener("DOMContentLoaded", () => {
-    document.querySelectorAll(".product").forEach(product => {
-        const mainImage = product.querySelector(".product-image");
-        const thumbnails = product.querySelectorAll(".product-thumbnails img")
+// ==================== Toast Notifications ====================
+function showToast(message, type = 'info') {
+    const container = document.getElementById('toast-container');
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+    toast.textContent = message;
 
-        if (!mainImage || thumbnails.length === 0) return;
+    container.appendChild(toast);
 
-        const defaultImage = mainImage.dataset.default;
+    setTimeout(() => {
+        toast.style.animation = 'slideInRight 0.3s ease-out reverse';
+        setTimeout(() => toast.remove(), 300);
+    }, 2500);
+}
 
-        function switchImage(newSrc) {
-            mainImage.style.opacity = 0;
+// ==================== Initialization ====================
+document.addEventListener('DOMContentLoaded', () => {
+    setupImageGalleries();
+    setupCart();
+    setupContactForm();
+    setupMobileMenu();
+    setupIntersectionObserver();
+});
+
+// ==================== Image Gallery Setup ====================
+function setupImageGalleries() {
+    document.querySelectorAll('.product-card').forEach(productCard => {
+        const mainImage = productCard.querySelector('.product-image');
+        const thumbnails = productCard.querySelectorAll('.thumb');
+        const colorInputs = productCard.querySelectorAll('.color-option input');
+
+        if (!mainImage) return;
+
+        const productKey = mainImage.dataset.product;
+        let currentColor = productCard.querySelector('.color-option input:checked')?.dataset.color || 'black';
+        let currentView = mainImage.dataset['default-view'] || 'front';
+
+        function buildImagePath(view, color) {
+            return `/images/products/${productKey}/${color}/${productKey}${view}-${color}.png`;
+        }
+
+        function updateMainImage(view = currentView) {
+            mainImage.style.opacity = '0';
 
             setTimeout(() => {
-                mainImage.src = newSrc;
-                mainImage.style.opacity = 1
+                mainImage.src = buildImagePath(view, currentColor);
+                mainImage.style.opacity = '1';
+                currentView = view;
             }, 150);
         }
 
-        thumbnails.forEach(thumb => {
-            thumb.addEventListener("mouseenter", () => {
-                switchImage(thumb.src);
+        function updateAllImages() {
+            updateMainImage('front');
+
+            // Update thumbnail background images
+            thumbnails.forEach(thumb => {
+                const view = thumb.dataset.view;
+                const thumbPath = buildImagePath(view, currentColor);
+                thumb.style.backgroundImage = `url('${thumbPath}')`;
             });
-            thumb.addEventListener("mouseleave", () => {
-                switchImage(thumb.src);
+        }
+
+        // Initial load
+        updateAllImages();
+
+        // Color change listener
+        colorInputs.forEach(input => {
+            input.addEventListener('change', (e) => {
+                currentColor = e.target.dataset.color;
+                updateAllImages();
+            });
+        });
+
+        // Thumbnail hover listeners
+        thumbnails.forEach(thumb => {
+            thumb.addEventListener('mouseenter', () => {
+                const view = thumb.dataset.view;
+                updateMainImage(view);
+            });
+
+            thumb.addEventListener('mouseleave', () => {
+                updateMainImage('front');
+            });
+
+            // Thumbnail click (for mobile)
+            thumb.addEventListener('click', (e) => {
+                e.preventDefault();
+                const view = thumb.dataset.view;
+                updateMainImage(view);
             });
         });
     });
-});
+}
 
-// Shopping Cart
+// ==================== Mobile Menu ====================
+function setupMobileMenu() {
+    const toggle = document.getElementById('mobile-menu-toggle');
+    const nav = document.getElementById('nav');
 
+    if (toggle) {
+        toggle.addEventListener('click', () => {
+            nav.classList.toggle('active');
+            toggle.classList.toggle('active');
+        });
+
+        nav.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                nav.classList.remove('active');
+                toggle.classList.remove('active');
+            });
+        });
+    }
+}
+
+// ==================== Shopping Cart ====================
 let cart = [];
 
-const buttons = document.querySelectorAll('.product button');
-const cartCount = document.getElementById('cart-count');
-const cartOverlay = document.getElementById('cart-overlay');
-const cartItems = document.getElementById('cart-items');
-const cartTotal = document.getElementById('cart-total');
-const checkoutBtn = document.getElementById('checkout-btn');
+function setupCart() {
+    const cartToggle = document.getElementById('cart-toggle');
+    const cartClose = document.getElementById('cart-close');
+    const cartOverlay = document.getElementById('cart-overlay');
+    const cartDrawer = document.getElementById('cart-drawer');
+    const addToCartButtons = document.querySelectorAll('[data-product]');
+    const checkoutBtn = document.getElementById('checkout-btn');
 
-const cartIcon = document.getElementById('cart');
-const cartClose = document.getElementById('cart-close');
+    cartToggle.addEventListener('click', toggleCart);
+    cartClose.addEventListener('click', closeCart);
+    cartOverlay.addEventListener('click', closeCart);
 
-cartIcon.addEventListener('click', ()=> {
-    cartOverlay.style.display = cartOverlay.style.display === 'none' ? 'block' : 'none';
-});
+    function toggleCart() {
+        cartDrawer.classList.toggle('active');
+        cartOverlay.classList.toggle('active');
+    }
 
-cartClose.addEventListener('click', () => {
-    cartOverlay.style.display = 'none';
-});
+    function closeCart() {
+        cartDrawer.classList.remove('active');
+        cartOverlay.classList.remove('active');
+    }
 
-buttons.forEach(button => {
-    button.addEventListener('click', () => {
-        const product =  button.closest('.product');
+    addToCartButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            e.preventDefault();
 
-        const productName = button.dataset.product;
-        const productPrice = parseFloat(button.dataset.price);
+            const productCard = button.closest('.product-card');
+            const productName = button.dataset.product;
+            const productPrice = parseFloat(button.dataset.price);
+            const selectedColor = productCard.querySelector('.color-option input:checked')?.value || 'Default';
 
-        const selectedColor = product.querySelector(
-            'input[type="radio"]:checked'
-        )?.value || "Default";
-
-        addToCart(productName, productPrice, selectedColor);
+            addToCart(productName, productPrice, selectedColor);
+            showToast(`${productName} added to cart.`, 'success');
+        });
     });
-});
+
+    checkoutBtn.addEventListener('click', () => {
+        if (cart.length === 0) {
+            showToast('Your cart is empty. Ready to elevate?', 'warning');
+            return;
+        }
+
+        const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+        showToast('Processing your order...', 'info');
+
+        setTimeout(() => {
+            cart = [];
+            updateCartUI();
+            closeCart();
+            showToast('Order confirmed. Excellence delivered.', 'success');
+        }, 1500);
+    });
+}
 
 function addToCart(name, price, color) {
-    const existingProduct = cart.find(item => item.name === name && item.color === color);
-    if (existingProduct) {
-        existingProduct.quantity += 1;
+    const existingItem = cart.find(item => item.name === name && item.color === color);
+
+    if (existingItem) {
+        existingItem.quantity += 1;
     } else {
-        cart.push({name: name, price: price, color: color, quantity: 1});
+        cart.push({
+            id: Date.now(),
+            name,
+            price,
+            color,
+            quantity: 1
+        });
     }
+
     updateCartUI();
+}
+
+function removeFromCart(itemId) {
+    cart = cart.filter(item => item.id !== itemId);
+    updateCartUI();
+}
+
+function updateQuantity(itemId, newQuantity) {
+    const item = cart.find(item => item.id === itemId);
+    if (item) {
+        if (newQuantity <= 0) {
+            removeFromCart(itemId);
+        } else {
+            item.quantity = newQuantity;
+            updateCartUI();
+        }
+    }
 }
 
 function updateCartUI() {
-    // 1. Anzahl im Icon
+    const cartCount = document.getElementById('cart-count');
+    const cartItems = document.getElementById('cart-items');
+    const cartEmpty = document.getElementById('cart-empty');
+    const cartTotal = document.getElementById('cart-total');
+
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
     cartCount.textContent = totalItems;
 
-    // 2. Dropdown füllen
     cartItems.innerHTML = '';
-    let totalPrice = 0;
 
-    cart.forEach((item, index) => {
-        const li = document.createElement('li');
-        li.style.display = 'flex';
-        li.style.justifyContent = 'space-between';
-        li.style.alignItems = 'center';
-        li.style.marginBottom = '8px';
-
-        // Info-Container
-        const info = document.createElement('div');
-        info.className = 'cart-item-info';
-        info.innerHTML = `
-            <span>${item.name} (${item.color})</span>
-            <span>€${item.price.toFixed(2)} x ${item.quantity} = €${(item.price * item.quantity).toFixed(2)}</span>
-        `;
-
-        // Menge Buttons
-        const controls = document.createElement('div');
-        controls.style.display = 'flex';
-        controls.style.alignItems = 'center';
-        controls.style.gap = '5px';
-
-        const minusBtn = document.createElement('button');
-        minusBtn.textContent = '−';
-        minusBtn.className = 'cart-quantity';
-        minusBtn.addEventListener('click', () => {
-            if (item.quantity > 1) {
-                item.quantity--;
-            } else {
-                cart.splice(index, 1);
-            }
-            updateCartUI();
-        });
-
-        const plusBtn = document.createElement('button');
-        plusBtn.textContent = '+';
-        plusBtn.className = 'cart-quantity';
-        plusBtn.addEventListener('click', () => {
-            item.quantity++;
-            updateCartUI();
-        });
-
-        controls.appendChild(minusBtn);
-        controls.appendChild(plusBtn);
-
-        // Löschen Button
-        const removeBtn = document.createElement('button');
-        removeBtn.textContent = '✕';
-        removeBtn.className = 'cart-remove';
-        removeBtn.addEventListener('click', () => {
-            cart.splice(index, 1);
-            updateCartUI();
-        });
-
-        li.appendChild(info);
-        li.appendChild(controls);
-        li.appendChild(removeBtn);
-
-        cartItems.appendChild(li);
-
-        totalPrice += item.price * item.quantity;
-    });
-
-    cartTotal.textContent = totalPrice.toFixed(2);
-}
-
-checkoutBtn.addEventListener('click', () => {
     if (cart.length === 0) {
-        alert("Dein Warenkrob ist leer!");
-        return;
-    }
+        cartEmpty.style.display = 'block';
+        cartTotal.textContent = '0.00';
+    } else {
+        cartEmpty.style.display = 'none';
 
-    let message = "Deine Bestellung:\n\n";
-    cart.forEach(item => {
-        message += `${item.name} x${item.quantity} - €${(item.price * item.quantity).toFixed(2)}\n`;
-    });
+        let total = 0;
 
-    const totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-    message += `\nGesamt: €${totalPrice.toFixed(2)}`;
+        cart.forEach(item => {
+            const li = document.createElement('li');
+            li.className = 'cart-item';
 
-    alert(message);
+            const subtotal = item.price * item.quantity;
+            total += subtotal;
 
-    cart = [];
-    updateCartUI();
-    cartOverlay.style.display = 'none';
-})
+            li.innerHTML = `
+                <div class="cart-item-info">
+                    <div class="cart-item-name">${item.name}</div>
+                    <div class="cart-item-color">${item.color}</div>
+                    <div class="cart-item-price">€${item.price.toFixed(2)} x ${item.quantity} = €${subtotal.toFixed(2)}</div>
+                </div>
+                <div class="cart-controls">
+                    <button class="quantity-btn" data-action="decrease" data-id="${item.id}">−</button>
+                    <span>${item.quantity}</span>
+                    <button class="quantity-btn" data-action="increase" data-id="${item.id}">+</button>
+                </div>
+                <button class="cart-remove" data-id="${item.id}">✕</button>
+            `;
 
-// Color Picker + Showcase Image Switch
-document.querySelectorAll('.product').forEach(product => {
-    const mainImage = product.querySelector('.product-image');
-    const thumbnails = product.querySelectorAll('.product-thumbnails img');
-    const colorRadios = product.querySelectorAll('.color-picker input');
-
-    if (!mainImage) return;
-
-    const productKey = mainImage.dataset.product;
-    let currentColor =
-        product.querySelector('.color-picker input:checked')?.dataset.color || 'black';
-
-    function imagePath(view, color) {
-        return `/images/products/${productKey}/${color}/${productKey}${view}-${color}.png`;
-    }
-
-    function updateImages(view = 'front') {
-        mainImage.style.opacity = 0;
-
-        setTimeout(() => {
-            mainImage.src = imagePath(view, currentColor);
-
-            thumbnails.forEach(thumb => {
-                const thumbView = thumb.dataset.view;
-                thumb.src = imagePath(thumbView, currentColor);
+            li.querySelector('[data-action="decrease"]').addEventListener('click', () => {
+                updateQuantity(item.id, item.quantity - 1);
             });
 
-            mainImage.style.opacity = 1;
-        }, 150);
+            li.querySelector('[data-action="increase"]').addEventListener('click', () => {
+                updateQuantity(item.id, item.quantity + 1);
+            });
+
+            li.querySelector('.cart-remove').addEventListener('click', () => {
+                removeFromCart(item.id);
+                showToast(`${item.name} removed from cart.`, 'info');
+            });
+
+            cartItems.appendChild(li);
+        });
+
+        cartTotal.textContent = total.toFixed(2);
     }
+}
 
-    // Initial laden
-    updateImages();
+// ==================== Contact Form ====================
+function setupContactForm() {
+    const form = document.getElementById('contact-form');
 
-    // Farbwechsel
-    colorRadios.forEach(radio => {
-        radio.addEventListener('change', () => {
-            currentColor = radio.dataset.color;
-            updateImages();
+    if (form) {
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const name = form.querySelector('#name').value;
+            const email = form.querySelector('#email').value;
+            const message = form.querySelector('#message').value;
+
+            console.log('Contact:', { name, email, message });
+
+            showToast('Message sent. We\'ll be in touch.', 'success');
+            form.reset();
         });
-    });
+    }
+}
 
-    // Hover Showcase
-    thumbnails.forEach(thumb => {
-        thumb.addEventListener('mouseenter', () => {
-            updateImages(thumb.dataset.view);
+// ==================== Intersection Observer for Animations ====================
+function setupIntersectionObserver() {
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
         });
+    }, observerOptions);
+
+    document.querySelectorAll('.product-card, .vision-card, .testimonial-card, .feature').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(el);
     });
+}
+
+// ==================== Smooth Scroll Navigation ====================
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+});
+
+// ==================== Hero CTA Buttons ====================
+document.querySelectorAll('.hero-cta-group .btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        if (btn.textContent.includes('Kollektion')) {
+            document.querySelector('#collection').scrollIntoView({ behavior: 'smooth' });
+        } else if (btn.textContent.includes('Mission')) {
+            document.querySelector('#vision').scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+});
+
+// ==================== CTA Section Button ====================
+document.querySelector('.cta-section .btn')?.addEventListener('click', () => {
+    document.querySelector('#collection').scrollIntoView({ behavior: 'smooth' });
 });
