@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delta</title>
+    <link rel="stylesheet" href="mainpage.css">
+</head>
+<body>
+    <header>
+        <h1 class="logo">
+            <img src="/images/icons/unclosedDelta.png" alt="Delta Logo" class="logo-icon">
+            DELTA
+        </h1>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">Products</a>
+            <a href="#">Contact</a>
+        </nav>
+
+        <div id="cart" class="cart-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="9" cy="21" r="1"></circle>
+                <circle cx="20" cy="21" r="1"></circle>
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+            </svg>
+            <span id="cart-count">0</span>
+        </div>
+
+        <div id="cart-overlay">
+            <div class="cart-header">
+                <h3>Your Cart</h3>
+                <span id="cart-close">✕</span>
+            </div>
+
+            <ul id="cart-items"></ul>
+
+            <div class="cart-footer">
+                <div class="cart-total">
+                    <span>Total</span>
+                    <span>€<span id="cart-total">0.00</span></span>
+                </div>
+                <button id="checkout-btn">Checkout</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="product-section">
+            <h2>Our Products</h2>
+            <div class="products">
+
+                <article class="product">
+                    <div class="product-gallery">
+                        <img
+                                src="/images/products/shirt01/black/shirt01front-black.png"
+                                alt="Delta Shirt"
+                                class="product-image"
+                                data-product="shirt01"
+                                data-default-view="front"
+                        >
+                        <div class="product-thumbnails">
+                            <img data-view="front">
+                            <img data-view="back">
+                            <img data-view="right">
+                            <img data-view="left">
+                        </div>
+                    </div>
+                    <h3>T-Shirt</h3>
+                    <p><span>19,99€</span></p>
+                    <div class="color-picker">
+                        <label>
+                            <input type="radio" name="color-tshirt" value="Black"
+                                   data-color="black" checked>
+                            <span class="color-dot black"></span>
+                        </label>
+                        <label>
+                            <input type="radio" name="color-tshirt" value="Grey"
+                                   data-color="grey">
+                            <span class="color-dot grey"></span>
+                        </label>
+                        <label>
+                            <input type="radio" name="color-tshirt" value="Navy"
+                                   data-color="navy">
+                            <span class="color-dot navy"></span>
+                        </label>
+                    </div>
+                    <button data-product="T-Shirt" data-price="19.99">Quick add</button>
+                </article>
+
+
+                <article class="product">
+                    <div class="product-gallery">
+                        <img
+                                src="/images/products/sweatshirt01/black/sweatshirt01front-black.png"
+                                alt="Delta Sweatshirt"
+                                class="product-image"
+                                data-product="sweatshirt01"
+                                data-default-view="front"
+                        >
+                        <div class="product-thumbnails">
+                            <img data-view="front">
+                            <img data-view="back">
+                            <img data-view="right">
+                            <img data-view="left">
+                        </div>
+                    </div>
+                    <h3>Sweatshirt</h3>
+                    <p><span>39,99€</span></p>
+                    <div class="color-picker">
+                        <label>
+                            <input type="radio" name="color-sweatshirt" value="Black"
+                                   data-color="black" checked>
+                            <span class="color-dot black"></span>
+                        </label>
+                    </div>
+                    <button data-product="Sweatshirt" data-price="39.99">Quick add</button>
+                </article>
+
+                <article class="product">
+                    <span class="badge new">NEW</span>
+                    <div class="product-gallery">
+                        <img
+                                src="/images/products/hoodie01/white/hoodie01front-white.png"
+                                alt="Delta Hoodie"
+                                class="product-image"
+                                data-product="hoodie01"
+                                data-default-view="front"
+                        >
+                        <div class="product-thumbnails">
+                            <img data-view="front">
+                            <img data-view="back">
+                            <img data-view="right">
+                            <img data-view="left">
+                        </div>
+                    </div>
+                    <h3>Hoodie</h3>
+                    <p><span>49,99€</span></p>
+                    <div class="color-picker">
+                        <label>
+                            <input type="radio" name="color-hoodie" value="White"
+                                   data-color="white" checked>
+                            <span class="color-dot white"></span>
+                        </label>
+                    </div>
+                    <button data-product="Hoodie" data-price="49.99">Quick add</button>
+                </article>
+
+
+                <article class="product">
+                    <span class="badge new">NEW</span>
+                    <div class="product-gallery">
+                        <img
+                                src="/images/products/beanie01/grey/beanie01front-grey.png"
+                                alt="Delta Beanie"
+                                class="product-image"
+                                data-product="beanie01"
+                                data-default-view="front"
+                        >
+                        <div class="product-thumbnails">
+                            <img data-view="front">
+                        </div>
+                    </div>
+                    <h3>Beanie</h3>
+                    <p><span>16,99€</span></p>
+                    <div class="color-picker">
+                        <label>
+                            <input type="radio" name="color-beanie" value="Grey"
+                                   data-color="grey" checked>
+                            <span class="color-dot grey"></span>
+                        </label>
+                    </div>
+                    <button data-product="Beanie" data-price="16.99">Quick add</button>
+                </article>
+
+
+            </div>
+        </section>
+
+        <section id="contact" class="contact-section">
+            <h2>Conctact Us</h2>
+            <form action="#" method="post">
+                <label for="name">Name</label><br>
+                <input type="text" id="name" name="name" placeholder="Your Name" required>
+
+                <label for="email">Email</label><br>
+                <input type="email" id="email" name="email" placeholder="you@example.com" required>
+
+                <label for="message">Message:</label><br>
+                <textarea id="message" name="message" rows="5" placeholder="Your message" required></textarea>
+
+                <button type="submit">Send Message</button>
+            </form>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-cards">
+            <div class="footer-card">
+                <h3>DELTA</h3>
+                <p>Transforming experiences through innovative products and thoughtful design.</p>
+            </div>
+            <div class="footer-card">
+                <h3>Links</h3>
+                <ul>
+                    <li><a href="#">Shop</a></li>
+                    <li><a href="#">Support</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-card">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="#">Privacy</a></li>
+                    <li><a href="#">Terms</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 DELTA. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="mainpage.js"></script>
+</body>
+</html>
